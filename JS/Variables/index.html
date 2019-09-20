@@ -6,5 +6,37 @@
 </head>
 <body>
 
+<div id="msgBox" class="container"></div>
+
+<script type="text/javascript">
+  // Crear una variable integer
+  var x=3;
+  // Crear una variable FLoat
+  var y=4.7 ;
+  // Crear una variable String
+  var cadena='<select id="selSemana"></select>';
+  // Crear una variable booleana
+  var condicio=true;
+  
+  document.getElementById("msgBox").innerHTML=cadena;
+  
+  // Crear una variable Array
+  var semana = ["Lun","Mar","Mx","Jv","Dv","Sab","Dom"];
+  //console.log(semana[1]);
+  //console.log( semana.length );
+  for(var i=0; i<semana.length; i++){
+	  console.log(semana[i]);
+	  console.log(i);
+	  debugger;
+	  document.getElementById("selSemana").innerHTML+="<option>"+semana[i]+"</option>";
+  }
+  
+  
+  
+  
+  
+
+</script>
+
 </body>
 </html>
