@@ -6,3 +6,12 @@ function publishUL(objArray,id){
 		debugger;
 	}
 }
+function publishULver2 (objArray){
+	var cadena="";
+	for(var i=0; i<objArray.length; i++){
+		console.log("Dintre la funció");
+		cadena+="<li>"+objArray[i]+"</li>";
+		debugger;
+	}
+	return cadena;
+}

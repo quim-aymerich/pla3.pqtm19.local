@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="caixa"></div>
+<script type="text/javascript">
+ 
+ var objAlumne = {
+		 "nom"			: "José Maria",
+		 "cognoms"		: "Aznar" ,
+		 "edat" 		: 58 ,
+		 "descripcio" 	: function(idObj){
+			 var obj=document.getElementById(idObj);
+			 obj.innerHTML= "<ul>"+
+			 	"<li>Nom:" 		+ this.nom 		+"</li>" +
+			 	"<li>Cognoms:"  + this.cognoms 	+ "</li>"+
+			 	"<li>Edat:"		+ this.edat 	+ "</li>"+
+			 "</ul>";
+		}
+ };
+  console.log(objAlumne);
+ console.log(objAlumne.nom);
+ objAlumne.descripcio("caixa") ;
+ </script>
+</body>
+</html>
