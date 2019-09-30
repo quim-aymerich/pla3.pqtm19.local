@@ -6,6 +6,7 @@
 </head>
 <body>
 <div id="caixa"></div>
+<div id="box"></div>
 <script type="text/javascript">
  
  var objAlumne = {
@@ -21,9 +22,20 @@
 			 "</ul>";
 		}
  };
+  // Mostra tot l'objecte
   console.log(objAlumne);
- console.log(objAlumne.nom);
- objAlumne.descripcio("caixa") ;
+ //Mostra de l'objecte només la propietat nom
+  console.log(objAlumne.nom);
+  // Executar el mètode obj.descripcio("id")
+  objAlumne.descripcio("caixa") ;
+  // Recorrer un Objecte amb mètodes ( excloure els mètodes )
+  for (x in objAlumne){
+	  if(typeof(objAlumne[x])!='function'){
+	  document.getElementById("box").innerHTML+="<p>"+
+	  	x+":"+objAlumne[x]+"</p>";
+	  }
+  }
+  
  </script>
 </body>
 </html>
