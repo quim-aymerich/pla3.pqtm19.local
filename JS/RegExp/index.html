@@ -16,14 +16,14 @@
 	  <div class="form-row">
 	    <div class="col-md-4 mb-3">
 	      <label for="Nom">Nom</label>
-	      <input type="text" class="form-control is-invalid" id="Nom" placeholder="Nom" value="" required>
+	      <input title="Se necesita un nombre huebon!!!" type="text" class="form-control " id="Nom" placeholder="Nom" value="" required pattern="[a-z]{1,15}">
 	      <div class="invalid-feedback">
 	          Per favor introdueixi un nom.
 	       </div>
 	    </div>
 	    <div class="col-md-4 mb-3">
 	      <label for="Cognoms">Cognoms</label>
-	      <input type="text" class="form-control is-invalid" id="Cognoms" placeholder="Cognoms" value="" required>
+	      <input type="text" class="form-control " id="Cognoms" placeholder="Cognoms" value="" required>
 	      <div class="invalid-feedback">
 	          Per favor introdueixi un cognom.
 	       </div>
@@ -31,7 +31,7 @@
 	  </div>
 	  <div class="form-group">
 	    <div class="form-check">
-	      <input class="form-check-input is-invalid" type="checkbox" value="y" id="invalidCheck" required>
+	      <input class="form-check-input " type="checkbox" value="y" id="invalidCheck" required>
 	      <label class="form-check-label " for="invalidCheck">
 	        Accepto els termes de polítiques de seguretat.
 	      </label>
@@ -48,5 +48,33 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+  <script type="text/javascript">
+  document.getElementById("Acceptar").onclick=function(eventito){
+	  // CApturar Event i parar-lo
+	  eventito.preventDefault();
+	  // Netejar classes de estils 'is-valid' o 'is-invalid'
+	  document.getElementById('Nom').className=document.getElementById('Nom').className.replace(/(is-valid|is-invalid)/g,''); 
+	  
+	  var birthDatePattern=/^([012][0-9]|3[0-1])\/(0[0-9]|1[0-2])\/([12]\d{3})$/;
+	  var birthDate = document.getElementById('Nom').value;
+	  if( ! birthDatePattern.test(birthDate)){
+		  // ------------- afegim la class 'is-invalid' al element
+		  document.getElementById('Nom').className+=" is-invalid ";
+	  }else{
+		  document.getElementById('Nom').className+=" is-valid ";
+		  
+	  }
+	  
+  }
+  
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
   </body>
 </html>
