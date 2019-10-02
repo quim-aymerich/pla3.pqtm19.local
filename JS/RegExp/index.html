@@ -16,23 +16,32 @@
 	  <div class="form-row">
 	    <div class="col-md-4 mb-4 position-relative">
 	      <label for="Nom">Nom</label>
-	      <input title="Se necesita un nombre huebon!!!" type="text" class="form-control " id="Nom" placeholder="Nom" value="" required pattern="[a-z]{1,15}">
+	      <input name="Nom" title="Se necesita un nombre huebon!!!" type="text" class="form-control " id="Nom" placeholder="Nom" value="" required pattern="[a-z]{1,15}">
 	      <div class="invalid-feedback position-absolute">
 	          Per favor introdueixi un nom sense cap número.
 	       </div>
 	    </div>
 	    <div class="col-md-4 mb-4 position-relative">
 	      <label for="Cognoms">Cognoms</label>
-	      <input type="text" class="form-control " id="Cognoms" placeholder="Cognoms" value="" required>
+	      <input name="Cognoms" type="text" class="form-control " id="Cognoms" placeholder="Cognoms" value="" required>
 	      <div class="invalid-feedback position-absolute">
 	          Per favor introdueixi un cognom sense cap número.
 	       </div>
 	    </div>
 	    <div class="col-md-4 mb-4 position-relative">
 	      <label for="Edat">Data Neixament</label>
-	      <input type="text" class="form-control " id="DataN" placeholder="dd/mm/aaaa" value="" required>
+	      <input name="DataN" type="text" class="form-control " id="DataN" placeholder="dd/mm/aaaa" value="" required>
 	      <div class="invalid-feedback position-absolute ">
 	          Per favor introdueixi una data vàlida en format dd/mm/aaaa.
+	       </div>
+	    </div>
+	  </div>
+	  <div class="form-row">
+	    <div class="col-md-4 mb-4 position-relative">
+	      <label for="Avatar">Avatar</label>
+	      <input name="Avatar"  type="file" class="form-control " id="Avatar" placeholder="Imatge" value="" required >
+	      <div class="invalid-feedback position-absolute">
+	          Per favor seleccioni una imatge.
 	       </div>
 	    </div>
 	  </div>
@@ -49,13 +58,30 @@
 	  </div>
   	  <button class="btn btn-primary" id="Acceptar" type="submit">Acceptar</button>
 	</form>
+	
+	<hr>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3>Dades del usuari</h3>
+				</div>
+				<div class="card-body">
+					<ul id="userBox" class=""></ul>
+				</div>
+			</div>
+		</div>
 	</div>
+	
+	</div><!-- ./container -->
+	
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
   <script type="text/javascript">
+  var xhr;
   document.getElementById("Acceptar").onclick=function(evt){
 	  
 	  // Capturar Event i parar-lo
@@ -67,6 +93,7 @@
 	  document.getElementById('Nom').className=document.getElementById('Nom').className.replace(/(is-valid|is-invalid)/g,'');
 	  document.getElementById('Cognoms').className=document.getElementById('Cognoms').className.replace(/(is-valid|is-invalid)/g,'');
 	  document.getElementById('DataN').className=document.getElementById('DataN').className.replace(/(is-valid|is-invalid)/g,'');
+	  document.getElementById('Avatar').className=document.getElementById('Avatar').className.replace(/(is-valid|is-invalid)/g,'');
 	  document.getElementById('invalidCheck').className=document.getElementById('invalidCheck').className.replace(/(is-valid|is-invalid)/g,'');
 	  
 	  // -----------------------Nom -------------------------------
@@ -81,11 +108,11 @@
 		  document.getElementById('Nom').className+=" is-valid ";
 	  }
 	  
-	// -----------------------Cognoms -------------------------------
+	  // -----------------------Cognoms -------------------------------
 	  document.getElementById('Cognoms').value=document.getElementById('Cognoms').value.trim();
-	  var nameString=document.getElementById('Cognoms').value;
-	  var namePattern=/\d/g;
-	  if( namePattern.test(nameString) || nameString=="" ){
+	  var surnameString=document.getElementById('Cognoms').value;
+	  var surnamePattern=/\d/g;
+	  if( surnamePattern.test(surnameString) || surnameString=="" ){
 		  // ------------- afegim la class 'is-invalid' al element
 		  document.getElementById('Cognoms').className+=" is-invalid ";
 		  totOk=false;
@@ -95,7 +122,7 @@
 	  
 	  // ---------------- Data Naixement ---------------------------
 	  var birthDate = document.getElementById('DataN').value;
-	  var birthDatePattern=/^([012][0-9]|3[0-1])\/(0[0-9]|1[0-2])\/([12]\d{3})$/;
+	  var birthDatePattern=/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[0-9]|1[0-2])\/(19|20)\d{2}$/;
 	  
 	  if( ! birthDatePattern.test(birthDate)){
 		  // ------------- afegim la class 'is-invalid' al element
@@ -134,6 +161,17 @@
 			  }
 		  }
 	  }
+	  // ---------------- Avatar --------------------------
+	  
+	  var avatarString=document.getElementById('Avatar').value;
+	  if( avatarString=="" ){
+		  // ------------- afegim la class 'is-invalid' al element
+		  document.getElementById('Avatar').className+=" is-invalid ";
+		  totOk=false;
+	  }else{
+		  
+		  document.getElementById('Avatar').className+=" is-valid ";
+	  }
 	  // ---------------- checkBox ------------------------
 	  if(document.getElementById('invalidCheck').checked==false){
 		  document.getElementById('invalidCheck').className+=" is-invalid ";
@@ -145,6 +183,34 @@
 	  
 	  if(totOk){
 		  // this.form.submit(); ? o Podriem enviar les dades Via AJAX...
+	  	 
+	  	  if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+	  		   xhr = new XMLHttpRequest();
+		  } else if (window.ActiveXObject) { // IE
+			   xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+	  	  
+	  	  xhr.onreadystatechange =function(){
+	  		if (xhr.readyState == 4 && xhr.status == 200) {
+	  			var response=JSON.parse(xhr.responseText);
+	  			console.log(response);
+	  			if( response.status){
+	  				document.getElementById('userBox').innerHTML=''+
+	  				'<li class="list-item">Nom: '+response.data.Nom+'</li>'+
+	  				'<li class="list-item">Cognoms: '+response.data.Cognoms+'</li>'+
+	  				'<li class="list-item">Data Naixement: '+response.data.DataN+'</li>'+
+	  				'';
+	  				if(response.data.Avatar.status){
+	  					document.getElementById('userBox').innerHTML+=''+
+	  					'<li class="list-item">Avatar: <img src="'+response.data.Avatar.img+'"></li>'+
+	  					'';
+	  				}
+	  			}
+	  		}
+		  };
+		  xhr.open('POST','./server.php',true);
+		  var formData = new FormData(this.form);
+		  xhr.send(formData);
 	  }
   }
   </script>
