@@ -14,25 +14,25 @@
     <h1>Exemple Expresions Regulars</h1>
     <form action="#" novalidate>
 	  <div class="form-row">
-	    <div class="col-md-4 mb-3">
+	    <div class="col-md-4 mb-4 position-relative">
 	      <label for="Nom">Nom</label>
 	      <input title="Se necesita un nombre huebon!!!" type="text" class="form-control " id="Nom" placeholder="Nom" value="" required pattern="[a-z]{1,15}">
-	      <div class="invalid-feedback">
-	          Per favor introdueixi un nom.
+	      <div class="invalid-feedback position-absolute">
+	          Per favor introdueixi un nom sense cap número.
 	       </div>
 	    </div>
-	    <div class="col-md-4 mb-3">
+	    <div class="col-md-4 mb-4 position-relative">
 	      <label for="Cognoms">Cognoms</label>
 	      <input type="text" class="form-control " id="Cognoms" placeholder="Cognoms" value="" required>
-	      <div class="invalid-feedback">
-	          Per favor introdueixi un cognom.
+	      <div class="invalid-feedback position-absolute">
+	          Per favor introdueixi un cognom sense cap número.
 	       </div>
 	    </div>
-	    <div class="col-md-4 mb-3">
+	    <div class="col-md-4 mb-4 position-relative">
 	      <label for="Edat">Data Neixament</label>
 	      <input type="text" class="form-control " id="DataN" placeholder="dd/mm/aaaa" value="" required>
-	      <div class="invalid-feedback">
-	          Per favor introdueixi una data en format dd/mm/aaaa.
+	      <div class="invalid-feedback position-absolute ">
+	          Per favor introdueixi una data vàlida en format dd/mm/aaaa.
 	       </div>
 	    </div>
 	  </div>
@@ -56,32 +56,97 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
   <script type="text/javascript">
-  document.getElementById("Acceptar").onclick=function(eventito){
-	  // Capturar Event i parar-lo
-	  eventito.preventDefault();
-	  // Netejar classes de estils 'is-valid' o 'is-invalid'
-	  document.getElementById('DataN').className=document.getElementById('DataN').className.replace(/(is-valid|is-invalid)/g,''); 
+  document.getElementById("Acceptar").onclick=function(evt){
 	  
-	  var birthDatePattern=/^([012][0-9]|3[0-1])\/(0[0-9]|1[0-2])\/([12]\d{3})$/;
+	  // Capturar Event i parar-lo
+	  evt.preventDefault();
+	  // var totOk control de enviament
+	  var totOk=true;
+	  
+	  // Netejar classes de estils 'is-valid' o 'is-invalid'
+	  document.getElementById('Nom').className=document.getElementById('Nom').className.replace(/(is-valid|is-invalid)/g,'');
+	  document.getElementById('Cognoms').className=document.getElementById('Cognoms').className.replace(/(is-valid|is-invalid)/g,'');
+	  document.getElementById('DataN').className=document.getElementById('DataN').className.replace(/(is-valid|is-invalid)/g,'');
+	  document.getElementById('invalidCheck').className=document.getElementById('invalidCheck').className.replace(/(is-valid|is-invalid)/g,'');
+	  
+	  // -----------------------Nom -------------------------------
+	  document.getElementById('Nom').value=document.getElementById('Nom').value.trim();
+	  var nameString=document.getElementById('Nom').value;
+	  var namePattern=/\d/g;
+	  if( namePattern.test(nameString) || nameString=="" ){
+		  // ------------- afegim la class 'is-invalid' al element
+		  document.getElementById('Nom').className+=" is-invalid ";
+		  totOk=false;
+	  }else{
+		  document.getElementById('Nom').className+=" is-valid ";
+	  }
+	  
+	// -----------------------Cognoms -------------------------------
+	  document.getElementById('Cognoms').value=document.getElementById('Cognoms').value.trim();
+	  var nameString=document.getElementById('Cognoms').value;
+	  var namePattern=/\d/g;
+	  if( namePattern.test(nameString) || nameString=="" ){
+		  // ------------- afegim la class 'is-invalid' al element
+		  document.getElementById('Cognoms').className+=" is-invalid ";
+		  totOk=false;
+	  }else{
+		  document.getElementById('Cognoms').className+=" is-valid ";
+	  }
+	  
+	  // ---------------- Data Naixement ---------------------------
 	  var birthDate = document.getElementById('DataN').value;
+	  var birthDatePattern=/^([012][0-9]|3[0-1])\/(0[0-9]|1[0-2])\/([12]\d{3})$/;
+	  
 	  if( ! birthDatePattern.test(birthDate)){
 		  // ------------- afegim la class 'is-invalid' al element
 		  document.getElementById('DataN').className+=" is-invalid ";
+		  totOk=false;
 	  }else{
-		  document.getElementById('DataN').className+=" is-valid ";
-		  
+		  var dateParts = birthDate.split("/");
+		  var dd = parseInt(dateParts[0]);
+		  var mm  = parseInt(dateParts[1]);
+		  var yy = parseInt(dateParts[2]);
+		  var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+		  if(mm!=2){
+			  if (dd > ListofDays[mm-1]) {
+			  	document.getElementById('DataN').className+=" is-invalid ";
+			  	totOk=false;
+			  
+			  }else{
+				  document.getElementById('DataN').className+=" is-valid ";
+			  }
+		  }else{
+			  if ( (!(yy % 4) && yy % 100) || !(yy % 400)){ //Any bisiesto
+				  if(dd>29){
+					  document.getElementById('DataN').className+=" is-invalid ";
+					  totOk=false;
+				  }else{
+					  document.getElementById('DataN').className+=" is-valid ";
+				  }
+			  }else{
+				  if (dd > ListofDays[mm-1]) {
+					  	document.getElementById('DataN').className+=" is-invalid ";
+					  	totOk=false;
+					  
+				  }else{
+					  document.getElementById('DataN').className+=" is-valid ";
+				  }  
+			  }
+		  }
+	  }
+	  // ---------------- checkBox ------------------------
+	  if(document.getElementById('invalidCheck').checked==false){
+		  document.getElementById('invalidCheck').className+=" is-invalid ";
+		  totOk=false;
+	  }else{
+		  document.getElementById('invalidCheck').className+=" is-valid ";
 	  }
 	  
+	  
+	  if(totOk){
+		  // this.form.submit(); ? o Podriem enviar les dades Via AJAX...
+	  }
   }
-  
   </script>
-  
-  
-  
-  
-  
-  
-  
-  
   </body>
 </html>
