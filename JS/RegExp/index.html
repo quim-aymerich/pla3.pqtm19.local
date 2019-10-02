@@ -28,6 +28,13 @@
 	          Per favor introdueixi un cognom.
 	       </div>
 	    </div>
+	    <div class="col-md-4 mb-3">
+	      <label for="Edat">Data Neixament</label>
+	      <input type="text" class="form-control " id="DataN" placeholder="dd/mm/aaaa" value="" required>
+	      <div class="invalid-feedback">
+	          Per favor introdueixi una data en format dd/mm/aaaa.
+	       </div>
+	    </div>
 	  </div>
 	  <div class="form-group">
 	    <div class="form-check">
@@ -50,18 +57,18 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
   <script type="text/javascript">
   document.getElementById("Acceptar").onclick=function(eventito){
-	  // CApturar Event i parar-lo
+	  // Capturar Event i parar-lo
 	  eventito.preventDefault();
 	  // Netejar classes de estils 'is-valid' o 'is-invalid'
-	  document.getElementById('Nom').className=document.getElementById('Nom').className.replace(/(is-valid|is-invalid)/g,''); 
+	  document.getElementById('DataN').className=document.getElementById('DataN').className.replace(/(is-valid|is-invalid)/g,''); 
 	  
 	  var birthDatePattern=/^([012][0-9]|3[0-1])\/(0[0-9]|1[0-2])\/([12]\d{3})$/;
-	  var birthDate = document.getElementById('Nom').value;
+	  var birthDate = document.getElementById('DataN').value;
 	  if( ! birthDatePattern.test(birthDate)){
 		  // ------------- afegim la class 'is-invalid' al element
-		  document.getElementById('Nom').className+=" is-invalid ";
+		  document.getElementById('DataN').className+=" is-invalid ";
 	  }else{
-		  document.getElementById('Nom').className+=" is-valid ";
+		  document.getElementById('DataN').className+=" is-valid ";
 		  
 	  }
 	  
