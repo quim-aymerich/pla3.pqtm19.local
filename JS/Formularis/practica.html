@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="servidor.php" method="post" id="registro">
+ <fieldset>
+  <legend>Registro</legend>
+  <div>
+   <label for="registro_nombre">Nombre:</label>
+   <input type="text" name="nombre" id="registro_nombre" class="txt-obl isOnlyChars">
+   <div style="visibility: hidden;"></div>
+  </div>
+  <div>
+   <label for="registro_apellidos">Apellido:</label>
+   <input type="text" name="apellido" id="registro_apellido" class="isDateDdMmYyyy">
+   <div style="visibility: hidden;"></div>
+  </div>
+  <div>
+   <label>Genero</label>
+   <input type="radio" name="genero" value="H">
+   <input type="radio" name="genero" value="M" class="rad-obl">
+   <div></div>
+  </div>
+  <div>
+   <label>Pais</label>
+   <select name="country" class="sel-obl">
+                <option value="">--Elija una opcion --</option>
+                <option value="es">España</option>
+                <option value="an">Andorra</option>
+            </select>
+   <div></div>
+  </div>
+  <div>
+   <label>Idiomas</label>
+   <select name="language[]" class="mult-obl" size="5">
+                <option value="es">Español</option>
+                <option value="en">Ingles</option>
+                <option value="fr">Frances</option>
+            </select>
+   <div></div>
+  </div>
+  <div>
+   <label for="registro_email">Email:</label>
+   <input type="text" name="email" id="registro_email">
+  </div>
+  <div>
+   <label for="registro_password">Password:</label>
+   <input type="password" name="password" id="registro_password">
+  </div>
+  <div>
+   <label for="registro_comentarios">Comentarios:</label>
+   <textarea name="comentarios" id="registro_comentarios" rows="10"></textarea>
+  </div>
+  <div>
+   <input type="checkbox" name="condiciones" id="registro_condiciones" value="1">
+   <label for="registro_condiciones">Acepto las condiciones del servicio.</label>
+  </div>
+
+  <div>
+   <input type="submit" value="Enviar">
+  </div>
+ </fieldset>
+</form>
+</body>
+</html>
