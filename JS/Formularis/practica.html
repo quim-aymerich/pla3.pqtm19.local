@@ -18,7 +18,7 @@
 		<div class="form-row">
 			<div class="col-lg-4 col-md-6 mb-4 position-relative">
 				<label for="registro_nombre">Nombre</label>
-				<input  type="text" name="nombre" id="registro_nombre" class="form-control">
+				<input  type="text" name="nombre" id="registro_nombre" class="form-control  ">
 				<div class="invalid-feedback position-absolute">
 					Por favor introduzca su nombre sin números.
 				</div>
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 		</div>
-		 <button class="btn btn-primary" id="registro_enviar" type="submit">Enviar</button>
+		 <button  class="btn btn-primary" id="registro_enviar" type="submit">Enviar</button>
 	  </fieldset>
 	</form>
 </div>
@@ -125,6 +125,71 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 	<script type="text/javascript">
+	
+	document.getElementById("registro_enviar").onclick=function(evt){
+		// Capturar Event i parar-lo
+		evt.preventDefault();
+		// var totOk control de enviament
+		var totOk=true;
+		
+		// ---- Netejar classes 'is-invalid' i 'is-valid' ----
+		this.form.querySelectorAll("*").forEach(function(item){
+			item.className=item.className.replace(/(is-valid|is-invalid)/g,'');
+		});
+		
+		// ------------------------ nombre --------------------
+		this.form.nombre.value= this.form.nombre.value.trim();
+		var string= this.form.nombre.value;
+		var pattern = /\d/;
+		if( pattern.test(string) || string==""){
+			this.form.nombre.className+=' is-invalid';
+			totOk=false;
+		}else{
+			this.form.nombre.className+=' is-valid';
+		}
+		 
+		// -------------------- genero -------------------------
+		if(this.form.genero.value==''){
+			this.form.genero.forEach(function(item){
+				item.className+=' is-invalid';
+			});
+			totOk=false;
+		}else{
+			this.form.genero.forEach(function(item){
+				item.className+=' is-valid';
+			});
+		}
+		
+		// -----------------------pais --------------------------
+		if(this.form.country.value==""){
+			this.form.country.className+=' is-invalid';
+			totOk=false;
+		}else{
+			this.form.country.className+=' is-valid';
+		}
+		
+		// ----------------------- Idiomas ------------------------
+		if(this.form.elements["language[]"].selectedIndex == -1){
+			this.form.elements["language[]"].className+=' is-invalid';
+			totOk=false;
+		}else{
+			this.form.elements["language[]"].className+=' is-valid';
+		}
+		
+		 // ----------------------Condiciones ----------------------
+		 if(! this.form.condiciones.checked){
+			 this.form.condiciones.className+=' is-invalid';
+				totOk=false;
+		 }else{
+				this.form.condiciones.className+=' is-valid';
+		 } 
+		 
+		
+		if(totOk==true){
+			 this.form.submit(); // Disparar l'event submit del form d'aques button
+			 // o be enviar les dades via AJAX 
+		}
+	}
 	
 	</script>
 </body>
