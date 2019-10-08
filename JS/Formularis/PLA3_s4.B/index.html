@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Practica B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/register.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" > 
+  </head>
+  <body>
+      <!-- #Content -->
+      <div id="content"> 
+         <form action="#" method="get" onsubmit="">
+          <fieldset>
+            <legend>Datos personales</legend>
+            <div class="personal-flex-box">
+              <div class="flex-item">
+                <div class="field-label">Nombre</div>
+                <input class="form-control is-valid" type="text" name="nombre" value=""/>
+                <div class="invalid-feedback position-absolute">
+					Por favor introduzca su nombre sin números.
+				</div>
+              </div>
+              <div class="flex-item flex-grow-2" >
+                <div class="field-label">Apellidos</div>
+                <input type="text" name="apellidos"/>
+              </div>
+              <div class="flex-item">
+                <div class="field-label">Fecha naciemineto</div>
+                <input type="text" name="fnacimeinto"  placeholder="dd/mm/yyyy"/>
+              </div>
+              <div class="flex-item" >
+                <div class="field-label">Genero</div>
+                <div class="radio-flex-box position-relative ">
+                  <!--  radio.male -->
+                  <span class="form-check  position-static">
+                  	<input class="form-check-input is-invalid  " type="radio" name="genero" value="male" />
+                  	<label class="form-check-label">Hombre</label>
+                  	<!-- .invalid-feedback -->
+                  	<span class="invalid-feedback position-absolute">
+						Por favor selecciones una opción
+					</span>
+                  </span>
+                  <!-- radio.female -->
+                  <span class="form-check">
+                  	<input class="form-check-input is-invalid " type="radio" name="genero" value="female" />
+                  	<label class="form-check-label"> Mujer</label>
+                  </span>
+                  <!-- radio.other -->
+                  <span class="form-check" >
+                 	<input class="form-check-input  is-invalid" type="radio" name="genero" value="other" /> 
+                 	<label class="form-check-label">Otros</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Datos de contacto</legend>
+            <div class="contacto-flex-box">
+              <div class="flex-item">
+                <div class="field-label">Email</div>
+                <input class="form-control is-invalid" type="text" name="email" />
+                <div class="invalid-feedback position-absolute">
+					Por favor introduzca una dirección válida.
+				</div>
+              </div>
+              <div class="flex-item">
+                <div class="field-label">Telefono</div>
+                <input class="form-control is-invalid" type="text" name="telefono" />
+                <div class="invalid-feedback position-absolute">
+					Por favor introduzca un numero válido.
+				</div>
+              </div>
+              <div class="flex-item flex-grow-2" >
+                <div class="field-label">Pagina personal</div>
+                <input class="form-control is-invalid" type="text" name="ppersonal" />
+                <div class="invalid-feedback position-absolute">
+					Por favor introduzca un URL válida.
+				</div>
+              </div>
+            </div>
+              
+          </fieldset>
+          <fieldset>
+            <legend>Conocimientos</legend>
+            <div class="conocimientos-flex-box">
+              <div class="flex-item flex-grow-2" >
+                <div class="field-label">Lenguajes</div>
+                <select multiple id="lista" name="lista" size="7">
+                  <option value="Php">Php</option>
+                  <option value="Phyton">Phyton</option>
+                  <option value="Java">Java</option>
+                  <option value="Jquery">JQuery</option>
+                  <option value="net">.NET</option>
+                </select>
+              </div>
+              <div class="flex-item" >
+                <div class="controls-flex-box">
+                  <button id="btn1" type="button" value=">"  onclick="seleccion(this,'lista','programacion');"  >&gt;</button>
+                  <button id="btn2" type="button" value=">>" onclick="seleccion(this,'lista','programacion');" >&gt;&gt;</button>
+                  <button id="btn3" type="button" value="<"  onclick="seleccion(this,'lista','programacion');"  >&lt;</button>
+                  <button id="btn4" type="button" value="<<" onclick="seleccion(this,'lista','programacion');" >&lt;&lt;</button>
+                </div>
+              </div>
+              <div class="flex-item flex-grow-2" >
+                <div class="field-label">Lenguajes</div>
+                <select class="form-control is-invalid"  multiple id="programacion" name="programacion" size="7"></select>
+                <div class="invalid-feedback position-absolute">
+					Por favor seleccione uno o más lenguajes.
+				</div>
+              </div>
+            </div>
+              
+          </fieldset>
+          <fieldset>
+            <div class="submit-flex-box">
+              <div class="flex-item">
+                <input type="submit" value="Enviar datos" />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <script type="text/javascript">
+      function seleccion(objButton,IdOrigen,IdDestino){
+    	  var objLlistaOrigen=document.getElementById(IdOrigen);
+    	  var objLlistaDestino=document.getElementById(IdDestino);
+    	  switch(objButton.value){
+    	  	case '>' :
+    	  			for(var i=0; i<objLlistaOrigen.options.length; i++){
+    	    		  if(objLlistaOrigen.options[i].selected==true){
+    	    			  objLlistaDestino.appendChild(objLlistaOrigen.options[i]);
+    	    			  i--;
+    	    		  }
+    	    	  	}
+    	  			break;
+    	  	case '>>' :
+	    	  		for(var i=0; i<objLlistaOrigen.options.length; i++){
+	  	    		  objLlistaDestino.appendChild(objLlistaOrigen.options[i]);
+	  	    		  i--;
+	  	    		}
+    	  			break;
+    	  	case '<' :
+	    	  		for(var i=0; i<objLlistaDestino.options.length; i++){
+	  	    		  if(objLlistaDestino.options[i].selected==true){
+	  	    			  objLlistaOrigen.appendChild(objLlistaDestino.options[i]);
+	  	    			  i--;
+	  	    		  }
+	  	    	  	}
+    	  			break;
+    	  	case '<<' :
+    	  			for(var i=0; i<objLlistaDestino.options.length; i++){
+    	  				objLlistaOrigen.appendChild(objLlistaDestino.options[i]);
+	  	    		  i--;
+	  	    		}
+    	  			break;
+    	  }
+      }
+      
+      
+      document.getElementById("btn1").onclick=function(){
+    	  var objLlista=document.getElementById('lista');
+    	  for(var i=0; i<objLlista.options.length; i++){
+    		  if(objLlista.options[i].selected==true){
+    			  document.getElementById('programacion').appendChild(objLlista.options[i]);
+    			  i--;
+    		  }
+    	  }
+      }
+      /*document.getElementById("btn2").onclick=function(){
+    	  var objLlista=document.getElementById('lista');
+    	  for(var i=0; i<objLlista.options.length; i++){
+    		  document.getElementById('programacion').appendChild(objLlista.options[i]);
+			  i--;
+    	  }
+      }
+      document.getElementById("btn3").onclick=function(){
+    	  var objLlista=document.getElementById('programacion');
+    	  for(var i=0; i<objLlista.options.length; i++){
+    		  if(objLlista.options[i].selected==true){
+    			  document.getElementById('lista').appendChild(objLlista.options[i]);
+    			  i--;
+    		  }
+    	  }
+      }
+      document.getElementById("btn4").onclick=function(){
+    	  var objLlista=document.getElementById('programacion');
+    	  for(var i=0; i<objLlista.options.length; i++){
+    		  document.getElementById('lista').appendChild(objLlista.options[i]);
+			  i--;
+    	  }
+      }*/
+      
+      </script>
+  </body>
+</html>
+

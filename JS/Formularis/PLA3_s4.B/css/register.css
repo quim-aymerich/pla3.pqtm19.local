@@ -1,0 +1,151 @@
+		
+#content {
+	background-color: #ffffff;
+}
+
+#content fieldset {
+	margin: 10px auto;
+	width: 90%;
+	padding: 10px 10px;
+	background-color: #ddeeff;
+	border: 1px solid #EAEAEA;
+	border-radius: 5px;
+}
+
+#content fieldset legend {
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 18pt;
+	color: #B4045F;
+	text-shadow: 0px 0px 1px #BA55D3;
+}
+
+.personal-flex-box, .contacto-flex-box  {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: space-between;
+}
+
+.submit-flex-box {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: space-between;
+}
+
+.submit-flex-box  .flex-item {
+	text-align:center;
+}
+
+.conocimientos-flex-box {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+}
+
+.flex-item {
+	background-color: #ddeeff;
+	min-width: 300px;
+	margin: 10px 25px;
+}
+
+.field-label {
+	padding: 10px 5px;
+}
+
+input[type=text], input[type=date], input[type=tel], input[type=email], input[type=url] {
+	border-radius: 3px;
+	border: 1px solid #000000;
+	font-family: monospace;
+	width: 100%;
+	height: 1.5em;
+	font-size: 18px;
+	font-weight: normal;
+	padding: 1px 3px;
+	margin: 0px 5px;
+}
+
+input[type=submit]{
+	border-radius: 3px;
+	border: 1px solid #000000;
+	font-family: monospace;
+	font-size: 18px;
+	padding: 10px 3px;
+	
+	
+}
+
+select[name="lista"], select[name="programacion"] {
+	border-radius: 3px;
+	border: 1px solid #000000;
+	font-family: monospace;
+	width: 100%;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 1px 3px;
+	margin: 0px 5px;
+	min-height:300px;
+}
+
+.radio-flex-box {
+	display: flex;
+	justify-content: space-between;
+	align-content: space-between;
+}
+
+.flex-grow-2 {
+	flex-grow: 2;
+}
+
+.controls-flex-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-content: space-around;
+	align-items: center;
+	height: 100%;
+}
+
+.controls-flex-box button {
+	width: 50px;
+	height: 50px;
+	border-radius: 3px;
+	border: 1px solid #000000;
+}
+
+.err-box{
+	color:tomato;
+	height: 1.5em;
+}
+
+
+
+@media all and (max-width: 1190px) {
+	.conocimientos-flex-box {
+		flex-direction: column;
+	}
+
+	.controls-flex-box {
+		flex-direction: row;
+	}
+}
+
+@media all and (max-width: 600px) {
+
+	.radio-flex-box {
+
+		flex-direction: column;
+		justify-content: space-between;
+		align-content: space-between;
+	}
+
+	.controls-flex-box {
+		flex-direction: row;
+	}
+}
