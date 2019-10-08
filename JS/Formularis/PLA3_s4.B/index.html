@@ -117,7 +117,7 @@
           <fieldset>
             <div class="submit-flex-box">
               <div class="flex-item">
-                <input type="submit" value="Enviar datos" />
+                <input id="btnForm"  type="submit" value="Enviar datos" />
               </div>
             </div>
           </fieldset>
@@ -194,6 +194,39 @@
       }*/
       
       </script>
+  	  <script type="text/javascript">
+  	  
+  	  document.getElementById("btnForm").onclick=function(evt){
+  		// Aturar Event 
+  		evt.preventDefault();
+  		// var totOk control de enviament
+  		var totOk=true;
+  		// -- netejar class="is-invalid" o class="is-valid" --
+  		this.form.querySelectorAll("*").forEach(function(el){
+  			el.className= el.className.replace(/(is-invalid|is-valid)/g,'');
+  		});
+  		
+  		// ---------- validacio input[name=nombre] ----------
+  		this.form.nombre.value=this.form.nombre.value.trim();
+  		var nombrePattern=/\d/g;
+  		var strNombre=this.form.nombre.value;
+  		if( nombrePattern.test(strNombre ) || strNombre==""  ){
+  			this.form.nombre.className+=" is-invalid";
+  			totOk=false;
+  		}else{
+  			this.form.nombre.className+=" is-valid";
+  		}
+  		// ---------- validacio input[name=apellidos] -------
+  		
+  		
+  		if(totOk==true){
+			 this.form.submit(); // Disparar l'event submit del form 
+			 // o be enviar les dades via AJAX 
+		}
+  	  }
+  	  
+  	  
+  	  </script>
   </body>
 </html>
 
