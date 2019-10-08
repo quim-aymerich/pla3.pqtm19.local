@@ -56,14 +56,14 @@ if (isset( $_FILES['Avatar'])){
 $array= array(
     'status'    =>$dataStatus,
     'data'      => array(
-    'Nom'       => $nom,
-    'Cognoms'   => $cognoms,
-    'DataN'     => $datan,
-    'Avatar'    => array(
-            'status'=> $avatarStatus,
-            'img'   => $avatarImg."?".time()
-        )
-     )
+        'Nom'       => $nom,
+        'Cognoms'   => $cognoms,
+        'DataN'     => $datan,
+        'Avatar'    => array(
+                'status'=> $avatarStatus,
+                'img'   => $avatarImg."?".time()
+            )
+         )
 );
 
 echo json_encode($array);
