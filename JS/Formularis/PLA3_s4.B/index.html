@@ -15,21 +15,21 @@
           <fieldset>
             <legend>Datos personales</legend>
             <div class="personal-flex-box">
-              <div class="flex-item">
+              <div class="flex-item  position-relative">
                 <div class="field-label">Nombre</div>
                 <input class="form-control " type="text" name="nombre" value=""/>
                 <div class="invalid-feedback position-absolute">
 					Por favor introduzca su nombre sin números.
 				</div>
               </div>
-              <div class="flex-item flex-grow-2" >
+              <div class="flex-item flex-grow-2 position-relative" >
                 <div class="field-label">Apellidos</div>
                 <input class="form-control " type="text" name="apellidos"/>
                 <div class="invalid-feedback position-absolute">
 					Por favor introduzca sus apellidos sin números.
 				</div>
               </div>
-              <div class="flex-item">
+              <div class="flex-item position-relative">
                 <div class="field-label">Fecha naciemineto</div>
                 <input class="form-control "  type="text" name="fnacimeinto"  placeholder="dd/mm/yyyy"/>
                 <div class="invalid-feedback position-absolute">
@@ -41,7 +41,7 @@
                 <div class="radio-flex-box position-relative ">
                   <!--  radio.male -->
                   <span class="form-check  position-static">
-                  	<input class="form-check-input is-invalid  " type="radio" name="genero" value="male" />
+                  	<input class="form-check-input   " type="radio" name="genero" value="male" />
                   	<label class="form-check-label">Hombre</label>
                   	<!-- .invalid-feedback -->
                   	<span class="invalid-feedback position-absolute">
@@ -50,12 +50,12 @@
                   </span>
                   <!-- radio.female -->
                   <span class="form-check">
-                  	<input class="form-check-input is-invalid " type="radio" name="genero" value="female" />
+                  	<input class="form-check-input " type="radio" name="genero" value="female" />
                   	<label class="form-check-label"> Mujer</label>
                   </span>
                   <!-- radio.other -->
                   <span class="form-check" >
-                 	<input class="form-check-input  is-invalid" type="radio" name="genero" value="other" /> 
+                 	<input class="form-check-input  " type="radio" name="genero" value="other" /> 
                  	<label class="form-check-label">Otros</label>
                   </span>
                 </div>
@@ -65,23 +65,23 @@
           <fieldset>
             <legend>Datos de contacto</legend>
             <div class="contacto-flex-box">
-              <div class="flex-item">
+              <div class="flex-item position-relative">
                 <div class="field-label">Email</div>
-                <input class="form-control is-invalid" type="text" name="email" />
+                <input class="form-control " type="text" name="email" />
                 <div class="invalid-feedback position-absolute">
 					Por favor introduzca una dirección válida.
 				</div>
               </div>
-              <div class="flex-item">
+              <div class="flex-item position-relative">
                 <div class="field-label">Telefono</div>
-                <input class="form-control is-invalid" type="text" name="telefono" />
+                <input class="form-control " type="text" name="telefono" />
                 <div class="invalid-feedback position-absolute">
 					Por favor introduzca un numero válido.
 				</div>
               </div>
-              <div class="flex-item flex-grow-2" >
+              <div class="flex-item flex-grow-2 position-relative" >
                 <div class="field-label">Pagina personal</div>
-                <input class="form-control is-invalid" type="text" name="ppersonal" />
+                <input class="form-control " type="text" name="ppersonal" />
                 <div class="invalid-feedback position-absolute">
 					Por favor introduzca un URL válida.
 				</div>
@@ -110,9 +110,9 @@
                   <button id="btn4" type="button" value="<<" onclick="seleccion(this,'lista','programacion');" >&lt;&lt;</button>
                 </div>
               </div>
-              <div class="flex-item flex-grow-2" >
+              <div class="flex-item flex-grow-2 position-relative" >
                 <div class="field-label">Lenguajes</div>
-                <select class="form-control is-invalid"  multiple id="programacion" name="programacion" size="7"></select>
+                <select class="form-control "  multiple id="programacion" name="programacion" size="7"></select>
                 <div class="invalid-feedback position-absolute">
 					Por favor seleccione uno o más lenguajes.
 				</div>
@@ -130,6 +130,7 @@
         </form>
       </div>
       <script type="text/javascript">
+      
       function seleccion(objButton,IdOrigen,IdDestino){
     	  var objLlistaOrigen=document.getElementById(IdOrigen);
     	  var objLlistaDestino=document.getElementById(IdDestino);
@@ -166,7 +167,7 @@
       }
       
       
-      document.getElementById("btn1").onclick=function(){
+      /*document.getElementById("btn1").onclick=function(){
     	  var objLlista=document.getElementById('lista');
     	  for(var i=0; i<objLlista.options.length; i++){
     		  if(objLlista.options[i].selected==true){
@@ -175,7 +176,7 @@
     		  }
     	  }
       }
-      /*document.getElementById("btn2").onclick=function(){
+      document.getElementById("btn2").onclick=function(){
     	  var objLlista=document.getElementById('lista');
     	  for(var i=0; i<objLlista.options.length; i++){
     		  document.getElementById('programacion').appendChild(objLlista.options[i]);
@@ -283,7 +284,49 @@ document.getElementById("btnForm").onclick = function(evt) {
     }else{
     	this.form.fnacimeinto.className += " is-valid";
     }
+	// -------------validacion input[name=genero] ----------
+	if( this.form.genero.value==""){
+		this.form.genero.forEach(function(element){
+			element.className+=' is-invalid';
+		});
+		totOk=false;
+	}else{
+		this.form.genero.forEach(function(element){
+			element.className+=' is-valid';
+		});
+	}
+	// --------------validacion input[name=email] -------------------
+	this.form.email.value = this.form.email.value.trim();
+	var emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+	var strEmail = this.form.email.value;
+	if (!emailPattern.test(strEmail) || strEmail == "") {
+		this.form.email.className += " is-invalid";
+		totOk = false;
+	} else {
+		this.form.email.className += " is-valid";
+	}
 	
+	// ------------- validar input[name=telefono] --------------------
+	this.form.telefono.value = this.form.telefono.value.trim();
+	var telefonoPattern = /^((\+\d*)|00\d{2})?(\d){9}$/;
+	var strTelefono = this.form.telefono.value;
+	if (!telefonoPattern.test(strTelefono) || strTelefono == "") {
+		this.form.telefono.className += " is-invalid";
+		totOk = false;
+	} else {
+		this.form.telefono.className += " is-valid";
+	}
+	
+	//-------------- validar input[name=ppersonal] ----------------------
+	this.form.ppersonal.value = this.form.ppersonal.value.trim();
+	var urlPattern=/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g;
+	var strPpersonal = this.form.ppersonal.value;
+	if (!urlPattern.test(strPpersonal) || strPpersonal == "") {
+		this.form.ppersonal.className += " is-invalid";
+		totOk = false;
+	} else {
+		this.form.ppersonal.className += " is-valid";
+	}
 	
 	// ---------- Prosseguir el submit ----------------
 	if (totOk == true) {
