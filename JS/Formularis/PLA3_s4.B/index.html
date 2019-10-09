@@ -344,8 +344,14 @@ document.getElementById("btnForm").onclick = function(evt) {
 	// ---------- Prosseguir el submit ----------------
 	if (totOk == true) {
 		debugger;
+		//this.form["programacion[]"].options.forEach(function(item){});
+		
 		// Cal seleccionar tots els options de la llista de programacion
 		for(i in this.form["programacion[]"].options){
+			this.form["programacion[]"].options[i].selected=true;
+		}
+		
+		for(var i=0; i<this.form["programacion[]"].options.length; i++){
 			this.form["programacion[]"].options[i].selected=true;
 		}
 		this.form.submit(); // Disparar l'event submit del form 
