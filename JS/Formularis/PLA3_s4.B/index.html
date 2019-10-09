@@ -11,7 +11,7 @@
   <body>
       <!-- #Content -->
       <div id="content"> 
-         <form action="#" method="get" onsubmit="">
+         <form action="servidor.php" method="post" >
           <fieldset>
             <legend>Datos personales</legend>
             <div class="personal-flex-box">
@@ -112,7 +112,11 @@
               </div>
               <div class="flex-item flex-grow-2 position-relative" >
                 <div class="field-label">Lenguajes</div>
-                <select class="form-control "  multiple id="programacion" name="programacion" size="7"></select>
+                <select class="form-control "  multiple id="programacion" name="programacion[]" size="7">
+                
+                
+                
+                </select>
                 <div class="invalid-feedback position-absolute">
 					Por favor seleccione uno o más lenguajes.
 				</div>
@@ -328,13 +332,27 @@ document.getElementById("btnForm").onclick = function(evt) {
 		this.form.ppersonal.className += " is-valid";
 	}
 	
+	// --------------- validacion select[name=programacion[]] --------
+	if(this.form["programacion[]"].options.length==0){
+		this.form["programacion[]"].className += " is-invalid";
+		totOk = false;
+	}else{
+		this.form["programacion[]"].className += " is-valid";
+	}
+	
+	
 	// ---------- Prosseguir el submit ----------------
 	if (totOk == true) {
+		debugger;
+		// Cal seleccionar tots els options de la llista de programacion
+		for(i in this.form["programacion[]"].options){
+			this.form["programacion[]"].options[i].selected=true;
+		}
 		this.form.submit(); // Disparar l'event submit del form 
 		// o be enviar les dades via AJAX 
 	}
 }
-					</script>
+	</script>
   </body>
 </html>
 
