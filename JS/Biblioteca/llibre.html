@@ -90,8 +90,11 @@
 			}
 			
 		};
+		
+		
 		// Definim els parametres de sol·licitus HTTP
-		xhr.open('GET','http://pla3.pqtm19.local/JSON/book.json',true);
+		xhr.open('GET','http://pla3.pqtm19.local/JSON/book.php',true);
+		xhr.setRequestHeader("Authorization", "Basic "+ btoa("pepe:12345"));
 		// Iniciem la sol·licitud
 		xhr.send(null);
 	}
