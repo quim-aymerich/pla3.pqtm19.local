@@ -1,0 +1,40 @@
+{
+"production": {
+	"industry": {
+		"fabricant": "Dolços el poble",
+		"adress": "Camí del Pont Vell, 1. Barcelona",
+		"CIF": "G0000000X",
+		"contact": "atencioalclient@dulceselpueblo.cat",
+		"web": "http://www.dolçoselpoble.cat/"
+	},
+	"product": [
+		{
+		"description": "Ensaïmada de crema",
+		"reference": "B-0001",
+		"weight": "50.00",
+		"lot": "2013-B-0001-0254",
+		"packingDate": "2013-11-05",
+		"expirationDate": "2013-11-11",
+		"web": "http://www.dolçoselpoble.cat/producte/ensaimada"
+		},
+		{
+		"description": "Magdalenas caseras",
+		"reference": "B-0002",
+		"weight": "30.00",
+		"lot": "2013-B-0002-0051",
+		"packingDate": "2013-05-11",
+		"expirationDate": "2014-01-11",
+		"web": "http://www.dolçoselpoble.cat/producte/magdalenes"
+		},
+		{
+		"description": "Polvorones",
+		"reference": "B-0003",
+		"weight": "65.00",
+		"lot": "2013-B-0002-0654",
+		"packingDate": "2013-05-11",
+		"expirationDate": "2014-09-11",
+		"web": "http://www.dolçoselpoble.cat/producte/polvorons"
+		}
+	]
+}
+}
