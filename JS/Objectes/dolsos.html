@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table id="tblIndustry">
+	<thead></thead>
+	<tbody></tbody>
+</table>
+
+<table id="tblProduct">
+	<thead></thead>
+	<tbody></tbody>
+</table>
+<script type="text/javascript">
+  var txtJSON=`	  {
+	  "production": {
+	  	"industry": {
+	  		"fabricant": "Dolços el poble",
+	  		"adress": "Camí del Pont Vell, 1. Barcelona",
+	  		"CIF": "G0000000X",
+	  		"contact": "atencioalclient@dulceselpueblo.cat",
+	  		"web": "http://www.dolçoselpoble.cat/"
+	  	},
+	  	"product": [
+	  		{
+	  		"description": "Ensaïmada de crema",
+	  		"reference": "B-0001",
+	  		"weight": "50.00",
+	  		"lot": "2013-B-0001-0254",
+	  		"packingDate": "2013-11-05",
+	  		"expirationDate": "2013-11-11",
+	  		"web": "http://www.dolçoselpoble.cat/producte/ensaimada"
+	  		},
+	  		{
+	  		"description": "Magdalenas caseras",
+	  		"reference": "B-0002",
+	  		"weight": "30.00",
+	  		"lot": "2013-B-0002-0051",
+	  		"packingDate": "2013-05-11",
+	  		"expirationDate": "2014-01-11",
+	  		"web": "http://www.dolçoselpoble.cat/producte/magdalenes"
+	  		},
+	  		{
+	  		"description": "Polvorones",
+	  		"reference": "B-0003",
+	  		"weight": "65.00",
+	  		"lot": "2013-B-0002-0654",
+	  		"packingDate": "2013-05-11",
+	  		"expirationDate": "2014-09-11",
+	  		"web": "http://www.dolçoselpoble.cat/producte/polvorons"
+	  		}
+	  	]
+	  }
+	  }  `;
+   var objDolsos=JSON.parse(txtJSON);
+   
+   console.log(objDolsos);
+   
+   // ------------------ table#tblIndustry thead ---------------
+   
+   /*var arrKeys= Object.keys(objDolsos.production.industry);
+   console.log(arrKeys);
+   var cadena="<tr>";
+   for(var i=0; i<arrKeys.length; i++){
+	   cadena+="<td>"+arrKeys[i]+"</td>";
+   }
+   cadena+="</tr>";
+   document.querySelector("#tblIndustry thead").innerHTML+=cadena;*/
+   
+   var cadena="<tr>";
+   for(key in objDolsos.production.industry ){
+	   cadena+="<td>"+key+"</td>";
+   }
+   cadena+="</tr>";
+   document.querySelector("#tblIndustry thead").innerHTML+=cadena;
+   
+   // ------------------ table#tblIndustry tbody ---------------
+	/*var arrValues= Object.values(objDolsos.production.industry);
+	var cadena="<tr>";
+	for(var i=0; i<arrValues.length; i++){
+		   cadena+="<td>"+arrValues[i]+"</td>";
+	   }
+	cadena+="</tr>";
+	document.querySelector("#tblIndustry tbody").innerHTML+=cadena;*/
+	
+	var cadena="<tr>";
+	for(key in objDolsos.production.industry ){
+		cadena+="<td>"+objDolsos.production.industry[key]+"</td>";
+	}
+	cadena+="</tr>";
+	document.querySelector("#tblIndustry tbody").innerHTML+=cadena;
+   
+	// ------------------ table#tblProduct thead ---------------
+	/*var arrKeys= Object.keys(objDolsos.production.product[0]);
+	var cadena="<tr>";
+	for(var i=0; i<arrKeys.length;i++ ){
+		cadena+="<td>"+arrKeys[i]+"</td>";
+	}
+	cadena+="</tr>";
+	document.querySelector("#tblProduct thead").innerHTML+=cadena;*/
+	
+	var cadena="<tr>";
+	for(key in objDolsos.production.product[0]){
+		cadena+="<td>"+key+"</td>";
+	}
+	cadena+="</tr>";
+	document.querySelector("#tblProduct thead").innerHTML+=cadena;
+	
+	// ------------------ table#tblProduct tbody ---------------
+	
+	/*for(i=0; i<objDolsos.production.product.length; i++ ){
+		var cadena="<tr>";
+		var arrValues= Object.values(objDolsos.production.product[i]);
+		for( var k=0; k<arrValues.length;k++){
+			cadena+="<td>"+arrValues[k]+"</td>";
+		}
+		cadena+="</tr>";
+		document.querySelector("#tblProduct tbody").innerHTML+=cadena;
+	}*/
+	
+	for(i=0; i<objDolsos.production.product.length; i++ ){
+		var cadena="<tr>";
+		for(key in objDolsos.production.product[i]){
+			cadena+="<td>"+objDolsos.production.product[i][key]+"</td>";
+		}
+		cadena+="</tr>";
+		document.querySelector("#tblProduct tbody").innerHTML+=cadena;
+	}
+	
+	
+</script>
+</body>
+</html>

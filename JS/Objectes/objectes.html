@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table id="tblObject">
+		<thead><tr></tr></thead>
+		<tbody></tbody>
+	</table>
+	
+	<select id="selObject">
+		<option value="">-- Elija una opción -- </option>
+	</select>
+		
+	<script type="text/javascript">
+	var x = {
+		"prop1" : "valor1",
+		"prop2" : "valor2" ,
+		"prop3" : "valor3"
+			
+	}
+	// ------------------- select#selObject ------------------------
+	for (key in x){
+		var cadena= '<option value="'+key+'">'+x[key]+'</option>';
+		document.getElementById("selObject").innerHTML+=cadena;
+	}
+	
+	// ------------------- thead ------------------------------------
+	var arrKeys   = Object.keys(x);
+	for(var i=0 ; i<arrKeys.length; i++){
+		//document.getElementById("tblObject").children[0].children[0].innerHTML+="<th>"+arrKeys[i]+"</th>";
+		document.querySelector("#tblObject thead tr").innerHTML+= "<th>"+arrKeys[i]+"</th>";
+	};
+	
+	// -------------------- tbody -------------------------------------
+	var arrValues = Object.values(x);
+	var cadena="<tr>";
+	for(var i=0 ; i<arrValues.length; i++){
+		cadena+="<td>"+arrValues[i]+"</td>";
+	}
+	cadena+="</tr>";
+	document.querySelector("#tblObject tbody").innerHTML+=cadena;
+	
+	// --------------------- tbody (bis) --------------------------------
+	var cadena="<tr>";
+	for(key in x){
+		cadena+="<td>"+x[key]+"</td>";
+	}
+	cadena+="</tr>";
+	document.querySelector("#tblObject tbody").innerHTML+=cadena;
+	
+	
+	
+	</script>
+</body>
+</html>
