@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Practica PLA3 s6: AJAX</title>
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <form action="#">
+    URL: <input type="text" list="URLS" id="recurso" >
+
+    <datalist id="URLS">
+      <option value=""></option>
+      <option value="bootstrap.js">bootstrap.js</option>
+      <option value="charts.html">charts.html</option>
+      <option value="cookies.js">cookies.js</option>
+      <option value="fa-brands-400.eot">fa-brands-400.eot</option>
+      <option value="fa-brands-400.svg">fa-brands-400.svg</option>
+      <option value="fa-brands-400.ttf">fa-brands-400.ttf</option>
+      <option value="server.php">server.php</option>
+      <option value="campus_1.jpg">campus_1.jpg</option>
+      <option value="browserconfig.xml">browserconfig.xml</option>
+   </datalist>
+   <input type="button" id="enviar" value="Mostrar contenidos" />
+  </form>
+
+  <div id="principal">
+    <h2>Contenidos del archivo:</h2>
+    <div id="contenidos"></div>
+
+    <h2>Cabeceras HTTP de la respuesta del servidor:</h2>
+    <div id="cabeceras"></div>
+  </div>
+
+  <div id="secundario">
+    <h2>Estados de la petición:</h2>
+    <div id="estados"></div>
+
+    <h2>Código de estado:</h2>
+    <div id="codigo"></div>
+  </div>
+  <script type="text/javascript">
+  var xhr;
+  if(window.XMLHttpRequest) {
+	  xhr = new XMLHttpRequest();
+  }else {
+	  xhr = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  
+  var estadosPosibles = ['No inicializado', 'Cargando', 'Cargado', 'Interactivo', 'Completado'];
+  var tiempoInicial = 0;
+  
+  //Cargar el recurso solicitado cuando se pulse el botón MOSTRAR CONTENIDOS
+  document.getElementById('enviar').onclick = function(){
+  	// input type="text" id="recurso" .value
+    var recurso = document.getElementById('recurso').value;
+  	// instant actual en mil·lèssimes de segon des de 1 gener 1970.
+    tiempoInicial = new Date();
+    document.getElementById('estados').innerHTML='';
+    document.getElementById('contenidos').innerHTML='';
+    document.getElementById('cabeceras').innerHTML='';
+  	// Preparar la resposta
+  	xhr.onreadystatechange = function(){
+  		var tiempoParcial= new Date();
+  		var msTranscurridos = tiempoParcial - tiempoInicial;
+  		// Diferents valors de readyState
+  		document.getElementById('estados').innerHTML+='<p>['+msTranscurridos+' msg] '+ xhr.readyState+'</p>';
+  		// Si resposta completada : responseText a innerText
+  		if(xhr.readyState== 4 && xhr.status==200 ){
+  			document.getElementById('contenidos').innerText=xhr.responseText;
+  			
+  		}
+  		// Finalitzada la request quin codi status tenim?
+  		if(xhr.readyState== 4){
+  			document.getElementById('codigo').innerText = xhr.status;
+  			document.getElementById('cabeceras').innerText=xhr.getAllResponseHeaders();
+  		}
+  	}
+  	document.getElementById('estados').innerHTML+='<p>[ 0 msg] '+ xhr.readyState+'</p>';
+  	xhr.open('GET', recurso+'?nocache='+Math.random(), true);
+  	xhr.send();
+   	
+  }
+  
+  </script>
+  
+  
+  
+  
+  
+  
+</body>
+</html>
