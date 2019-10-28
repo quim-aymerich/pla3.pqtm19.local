@@ -15,6 +15,10 @@
 <body>
 <div class="container-fluid">
 	<div class="row">
+		<div class="col"><button class="btn btn-danger" id="btnDelete">Eliminar</button></div>
+		<div class="col"><button class="btn btn-success" id="btnAdd">Añadir</button></div>
+	</div>
+	<div class="row">
 		<div class="col-12 col-md-4">
 			<div class="card h-100">
 				<div class="card-header">
@@ -34,7 +38,7 @@
 				</div>
 				<div class="card-body">
 				<div class="table-responsive">
-					<table id="tblCursos">
+					<table id="tblCursos" class="display">
 						<thead>
 							<tr>
 								<th>Id</th>
@@ -62,8 +66,24 @@
 <!-- Datatable -->
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
+var tabla=$('#tblCursos').DataTable({
+	
+	
+});
 
+document.getElementById('btnDelete').onclick=function(){
+	tabla.clear().draw();
+}
 
+document.getElementById('btnAdd').onclick=function(){
+	tabla.row.add( {
+	    "0":    "Tiger Nixon",
+	    "1":   	"System Architect",
+	    "2":    "$3,120",
+	    "3": 	"2011/04/25",
+	    "4":    "Edinburgh"
+	} ).draw();
+}
 </script>
 </body>
 </html>

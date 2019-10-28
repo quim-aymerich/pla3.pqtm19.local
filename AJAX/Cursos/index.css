@@ -1,0 +1,39 @@
+select {
+	min-width: 300px;
+}
+
+#selectores {
+	float: left;
+	/*display:block;*/
+	width: 310px;
+	margin: 5px;
+	padding: 5px;
+	border-radius: 4px;
+	border: 1px solid #777;
+	font-size: 14px;
+}
+
+#cursos {
+	float: left;
+	/*display:block;*/
+	min-width: 600px;
+	margin: 5px;
+	padding: 5px;
+	border-radius: 4px;
+	border: 1px solid #777;
+	font-size: 14px;
+}
+
+#cursos table {
+	border-collapse: collapse;
+	width: 800px;
+}
+
+#cursos table tbody tr td {
+	border-top: 1px solid #999990;
+	padding: 5px 3px;
+}
+
+#cursos table tbody tr:nth-child(odd) td {
+	background-color: #DDEEFF;
+}

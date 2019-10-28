@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PLA3_s6.E: Cercador de dades filtrades amb AJAX.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+	<div id="selectores">
+		<p>Areas</p>
+		<select id="tblAreas">
+			<option value="0">-- Escoja una area --</option>
+		</select>
+	</div>
+	<div id="cursos">
+		<table>
+			<thead>
+				<tr>
+					<td style="width: 10%">Id</td>
+					<td style="width: 40%">Curso</td>
+					<td style="width: 30%">Area</td>
+					<td style="width: 10%">Duracion</td>
+					<td style="width: 10%">[+ info]</td>
+				</tr>
+			</thead>
+			<tbody id="tblcursos"></tbody>
+		</table>
+	</div>
+	<script type="text/javascript">
+		var xhr;
+		if (window.XMLHttpRequest) {
+			// code for modern browsers
+			var xhr = new XMLHttpRequest();
+		} else {
+			// code for old IE browsers
+			var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var arrAareas = JSON.parse(this.responseText);
+				for (i in arrAareas) {
+					var cadena = '<option value='+arrAareas[i].id+'>';
+					cadena += arrAareas[i].nombre + '</option>';
+					document.getElementById('tblAreas').innerHTML += cadena;
+				}
+				getCursos();
+			}
+		}
+		xhr.open("GET", "tbl_areas.php", true);
+		xhr.send();
+
+		function getCursos() {
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var arrCursos = JSON.parse(this.responseText);
+					for (i in arrCursos) {
+						var cadena = '<tr>'
+								+ '<td>'
+								+ arrCursos[i].id
+								+ '</td>'
+								+ '<td>'
+								+ arrCursos[i].nombre
+								+ '</td>'
+								+ '<td>'
+								+ arrCursos[i].area
+								+ '</td>'
+								+ '<td>'
+								+ arrCursos[i].duracion
+								+ '</td>'
+								+ '<td><a href="javascript:void(0)" onclick="moreInfo('
+								+ arrCursos[i].id + ')" >[+info...]</a></td>'
+								+ '</tr>';
+						document.getElementById('tblcursos').innerHTML += cadena;
+					}
+				}
+			}
+			xhr.open("GET", "tbl_cursos.php", true);
+			xhr.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			xhr.send();
+		}
+		document.getElementById('tblAreas').onchange = function() {
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var arrCursos = JSON.parse(this.responseText);
+					document.getElementById('tblcursos').innerHTML = '';
+					for (i in arrCursos) {
+						var cadena = '<tr>'
+								+ '<td>'
+								+ arrCursos[i].id
+								+ '</td>'
+								+ '<td>'
+								+ arrCursos[i].nombre
+								+ '</td>'
+								+ '<td>'
+								+ arrCursos[i].area
+								+ '</td>'
+								+ '<td>'
+								+ arrCursos[i].duracion
+								+ '</td>'
+								+ '<td><a href="javascript:void(0)" onclick="getCurs('
+								+ arrCursos[i].id + ')" >[+info...]</a></td>'
+								+ '</tr>';
+						document.getElementById('tblcursos').innerHTML += cadena;
+					}
+				}
+			}
+			xhr.open("GET", "tbl_cursos.php?id_areas=" + this.value
+					+ "&nocache=" + Math.random(), true);
+			xhr.send();
+		}
+		function getCurs(id) {
+			console.log(id_curso);
+		}
+	</script>
+</body>
+</html>
