@@ -71,9 +71,65 @@
 <!-- <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> -->
 <script>
 var tabla=$('#tblCursos').DataTable({
-	
+	language: {
+		url: "/PracticaDatatable/spanish.datatable.json"
+	},
+	columnDefs: [
+	    { "data": "id"		, "targets": 0 },
+	    { "data": "nombre"	, "targets": 1 },
+	    { "data": "area"	, "targets": 2 },
+	    { "data": "duracion", "targets": 3 },
+	    { "data": "info"	, "targets": 4 }
+	]
 	
 });
+
+var xhr1;
+xhr1 = new XMLHttpRequest();
+xhr1.onreadystatechange=function(){
+	if(xhr1.readyState==4 && xhr1.status==200){
+		var objResponse1=JSON.parse(xhr1.responseText);
+		if(objResponse1.status){
+			for(var j=0;j<objResponse1.records.length; j++ ){
+				var cadena='<option value="'+objResponse1.records[j].id+'">'+objResponse1.records[j].nombre+'</option>';
+				document.getElementById('tblAreas').innerHTML+=cadena;
+			}
+		}
+	}
+}
+xhr1.open('GET','http://app.cifo.local/api/public/formacion/areas/',true);
+xhr1.send();
+
+
+
+var xhr;
+xhr = new XMLHttpRequest();
+
+
+
+xhr.onreadystatechange=function(){
+	if(xhr.readyState==4 && xhr.status==200){
+		var objResponse=JSON.parse(xhr.responseText);
+		if(objResponse.status){
+			console.log(objResponse.records[i]);
+			for(var i=0; i< objResponse.records.length; i++){
+				console.log(objResponse.records[i]);
+				tabla.row.add({
+					"id" 		: objResponse.records[i].id,
+					"nombre"	: objResponse.records[i].nombre,
+					"area"		: objResponse.records[i].area,
+					"duracion"	: objResponse.records[i].duracion,
+					"info"		: '<a href="javascript:void(0)" onclick="editCurso('+objResponse.records[i].id+')">[<i class="fa fa-plus"></i> info]</a>'
+				});
+			}
+			tabla.draw();
+		}
+	}
+}
+xhr.open('GET','http://app.cifo.local/api/public/formacion/cursos/',true);
+xhr.send();
+
+
 
 document.getElementById('btnDelete').onclick=function(){
 	tabla.clear().draw();
@@ -81,12 +137,12 @@ document.getElementById('btnDelete').onclick=function(){
 
 document.getElementById('btnAdd').onclick=function(){
 	tabla.row.add( {
-	    "0":    "Tiger Nixon",
-	    "1":   	"System Architect",
-	    "2":    "$3,120",
-	    "3": 	"2011/04/25",
-	    "4":    "Edinburgh"
-	} ).draw();
+	    "id" 		:   "Tiger Nixon",
+	    "nombre" 	:   "System Architect",
+	    "area" 		:   "$3,120",
+	    "duracion"	: 	"2011/04/25",
+	    "info" 		:   "Edinburgh"
+	} ).draw(false);
 }
 </script>
 </body>
