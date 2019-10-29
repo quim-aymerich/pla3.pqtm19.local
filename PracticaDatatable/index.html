@@ -16,12 +16,9 @@
 </head>
 <body>
 <div class="container-fluid">
+	<div class="jumbotron "><h1 class="text-center strong">Gestión de Cursos</h1></div>
 	<div class="row">
-		<div class="col"><button class="btn btn-danger" id="btnDelete">Eliminar</button></div>
-		<div class="col"><button class="btn btn-success" id="btnAdd">Añadir</button></div>
-	</div>
-	<div class="row">
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-3">
 			<div class="card h-100">
 				<div class="card-header">
 					Areas
@@ -33,14 +30,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-md-8">
+		<div class="col-12 col-md-9">
 			<div class="card h-100">
 				<div class="card-header">
 					Cursos
 				</div>
 				<div class="card-body">
 				<div class="table-responsive">
-					<table id="tblCursos" class=" table">
+					<table id="tblCursos" class=" table small">
 						<thead>
 							<tr>
 								<th>Id</th>
@@ -58,13 +55,34 @@
 		</div>
 	</div>
 </div>
-
-<div id="modalAjax" class="modal" data-backdrop="static" tabindex="-1" role="dialog">
+<!-- ========================== div#modalAjax ======================= -->
+<div id="ajaxModal" class="modal" data-backdrop="static" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
 		<div class="spinner-border text-light">
 			<span class="sr-only">Loading...</span>
 		</div>
 	</div>
+</div>
+
+<!-- =========================== div#cursoModal ===================== -->
+<!-- Modal -->
+<div class="modal fade" id="cursoModal" tabindex="-1" role="dialog" aria-labelledby="cursoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cursoModalLabel">Ficha de Curso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -94,7 +112,7 @@ var tabla=$('#tblCursos').DataTable({
 	]
 	
 });
-$('#modalAjax').modal('show');
+$('#ajaxModal').modal('show');
 /* ----------------------------------- GEt Areas --------------------------- */
 var xhr1;
 xhr1 = new XMLHttpRequest();
@@ -120,42 +138,77 @@ xhr.onreadystatechange=function(){
 	if(xhr.readyState==4 && xhr.status==200){
 		var objResponse=JSON.parse(xhr.responseText);
 		if(objResponse.status){
-			console.log(objResponse.records[i]);
 			for(var i=0; i< objResponse.records.length; i++){
-				console.log(objResponse.records[i]);
 				tabla.row.add({
 					"id" 		: objResponse.records[i].id,
 					"nombre"	: objResponse.records[i].nombre,
 					"area"		: objResponse.records[i].area,
 					"duracion"	: objResponse.records[i].duracion,
-					"info"		: '<a href="javascript:void(0)" onclick="editCurso('+objResponse.records[i].id+')">[<i class="fa fa-plus"></i> info]</a>'
+					"info"		: '<a href="javascript:void(0)" onclick="viewCurso('+objResponse.records[i].id+')">[<i class="fa fa-plus"></i> info]</a>'
 				});
 			}
 			tabla.draw();
-			$('#modalAjax').modal('hide');
+			$('#ajaxModal').modal('hide');
 		}
 	}
 }
 xhr.open('GET','http://app.cifo.local/api/public/formacion/cursos/',true);
 xhr.send();
 
-
-
-
-
-document.getElementById('btnDelete').onclick=function(){
+/* ------------------- tblAreas onchange ---------------------- */
+document.getElementById('tblAreas').onchange=function(){
+	$('#ajaxModal').modal('show');
 	tabla.clear().draw();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var objResponse=JSON.parse(xhr.responseText);
+			if(objResponse.status){
+				for(var i=0; i< objResponse.records.length; i++){
+					console.log(objResponse.records[i]);
+					tabla.row.add({
+						"id" 		: objResponse.records[i].id,
+						"nombre"	: objResponse.records[i].nombre,
+						"area"		: objResponse.records[i].area,
+						"duracion"	: objResponse.records[i].duracion,
+						"info"		: '<a href="javascript:void(0)" onclick="editCurso('+objResponse.records[i].id+')">[<i class="fa fa-plus"></i> info]</a>'
+					});
+				}
+				tabla.draw();
+				$('#ajaxModal').modal('hide');
+			}
+		}
+	}
+	if(this.value==''){
+		xhr.open('GET','http://app.cifo.local/api/public/formacion/cursos/',true);
+		
+	}else{
+		xhr.open('GET','http://app.cifo.local/api/public/formacion/cursos/area/'+this.value+'/',true);
+	}
+	xhr.send();
 }
 
-document.getElementById('btnAdd').onclick=function(){
-	tabla.row.add( {
-	    "id" 		:   "Tiger Nixon",
-	    "nombre" 	:   "System Architect",
-	    "area" 		:   "$3,120",
-	    "duracion"	: 	"2011/04/25",
-	    "info" 		:   "Edinburgh"
-	} ).draw(false);
+function viewCurso(id){
+	document.querySelector('#cursoModal .modal-body ').innerHTML='';
+	$('#ajaxModal').modal('show');
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			var objResponse=JSON.parse(xhr.responseText);
+			if(objResponse.status){
+				for(key in objResponse.record){
+					console.log(key);
+					var cadena= `<p>${key}: ${objResponse.record[key]}</p>`;
+					document.querySelector('#cursoModal .modal-body ').innerHTML+=cadena;
+				}
+				$('#ajaxModal').modal('hide');
+				$('#cursoModal').modal('show');
+			}
+		}
+	}
+	xhr.open('GET','http://app.cifo.local/api/public/formacion/cursos/'+id+'/',true);
+	xhr.send();
 }
+
+
 </script>
 </body>
 </html>
