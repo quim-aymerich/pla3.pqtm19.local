@@ -59,6 +59,15 @@
 	</div>
 </div>
 
+<div id="modalAjax" class="modal" data-backdrop="static" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+		<div class="spinner-border text-light">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+</div>
+
+
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Popper -->
@@ -74,7 +83,9 @@ var tabla=$('#tblCursos').DataTable({
 	language: {
 		url: "/PracticaDatatable/spanish.datatable.json"
 	},
-	columnDefs: [
+	lengthMenu 	: [ 5, 10, 25, 50, 75, 100 ],
+	pageLength  : 5,
+	columnDefs 	: [
 	    { "data": "id"		, "targets": 0 },
 	    { "data": "nombre"	, "targets": 1 },
 	    { "data": "area"	, "targets": 2 },
@@ -83,7 +94,8 @@ var tabla=$('#tblCursos').DataTable({
 	]
 	
 });
-
+$('#modalAjax').modal('show');
+/* ----------------------------------- GEt Areas --------------------------- */
 var xhr1;
 xhr1 = new XMLHttpRequest();
 xhr1.onreadystatechange=function(){
@@ -100,12 +112,9 @@ xhr1.onreadystatechange=function(){
 xhr1.open('GET','http://app.cifo.local/api/public/formacion/areas/',true);
 xhr1.send();
 
-
-
+/* ------------------------------------- get Cursos ----------------------------- */
 var xhr;
 xhr = new XMLHttpRequest();
-
-
 
 xhr.onreadystatechange=function(){
 	if(xhr.readyState==4 && xhr.status==200){
@@ -123,11 +132,14 @@ xhr.onreadystatechange=function(){
 				});
 			}
 			tabla.draw();
+			$('#modalAjax').modal('hide');
 		}
 	}
 }
 xhr.open('GET','http://app.cifo.local/api/public/formacion/cursos/',true);
 xhr.send();
+
+
 
 
 
